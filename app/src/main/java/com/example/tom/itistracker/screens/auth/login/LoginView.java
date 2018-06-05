@@ -8,6 +8,6 @@ public interface LoginView extends BaseAuthView {
 
     void showErrorInLoginField();
 
-    void openThemesScreen();
+    void openProjectsScreen();
 
 }

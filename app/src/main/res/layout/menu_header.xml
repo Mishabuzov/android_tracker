@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_header_layout"
     android:layout_width="match_parent"
@@ -10,30 +8,22 @@
     android:orientation="vertical"
     android:padding="20dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:visibility="gone">
+    android:visibility="gone"
+    tools:visibility="visible">
 
-    <com.makeramen.roundedimageview.RoundedImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/logo_iv"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginBottom="15dp"
         android:scaleType="centerCrop"
-        app:riv_corner_radius="30dip"
-        app:riv_oval="false" />
+        tools:src="@drawable/user_pic" />
 
-    <com.kpfu.mikhail.vk.widget.textviews.RobotoBoldTextView
+    <com.example.tom.itistracker.widgets.fonts.textviews.RobotoBoldTextView
         android:id="@+id/username_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="20sp"
         tools:text="Name and surname" />
-
-    <com.kpfu.mikhail.vk.widget.textviews.RobotoRegularTextView
-        android:id="@+id/status_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="14sp"
-        tools:text="status" />
 
 </LinearLayout>

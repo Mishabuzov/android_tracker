@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
     <style name="TextLabel">
         <item name="android:textColor">@color/login_textcolor</item>
         <item name="android:textColorHint">@color/login_edittext_hint</item>
@@ -17,6 +16,37 @@
         <item name="colorAccent">@android:color/white</item>
         <item name="colorControlNormal">@color/login_textcolor</item>
         <item name="colorControlActivated">@android:color/white</item>
+    </style>
+
+    <style name="Widget" />
+
+    <style name="Widget.ProgressBar.CircularProgressBar" parent="Widget">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="cpb_progressColor">@color/circular_progress_default_progress_line</item>
+        <item name="cpb_hasShadow">true</item>
+        <item name="cpb_strokeWidth">12</item>
+        <item name="cpb_titleColor">@color/circular_progress_default_progress_line</item>
+        <item name="cpb_subtitleColor">@color/circular_progress_default_progress_line</item>
+    </style>
+
+    <style name="Widget.ProgressBar.Holo.CircularProgressBar" parent="Widget.ProgressBar.CircularProgressBar">
+        <item name="cpb_hasShadow">false</item>
+        <item name="cpb_strokeWidth">10</item>
+    </style>
+
+    <!--tab layout style-->
+    <style name="AppTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/tab_selected_color</item>
+        <item name="tabBackground">@color/tab_background</item>
+        <item name="tabTextAppearance">@style/AppTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/tab_selected_text_color</item>
+    </style>
+
+    <!-- for tab text -->
+    <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/tab_standard_text_color</item>
     </style>
 
 </resources>

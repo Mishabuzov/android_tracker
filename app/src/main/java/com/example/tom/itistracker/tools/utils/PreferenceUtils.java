@@ -10,47 +10,64 @@ public final class PreferenceUtils {
 
     private static final String TOKEN_KEY = "token";
 
+    private static final String TOKEN_PRESCRIPT = "Bearer";
+
     private static final String USER_PROFILE_KEY = "profile";
 
     private static final String NEXT_FROM = "next_from";
 
-    public static void saveToken(@NonNull String token) {
-        Hawk.put(TOKEN_KEY, token);
+    private static final String PROJECT_ID = "project_id";
+
+    private void saveToken(@NonNull final String token) {
+        Hawk.put(TOKEN_KEY, String.format("%1$s %2$s", TOKEN_PRESCRIPT, token));
     }
 
     @NonNull
-    public static String getToken() {
+    public String getToken() {
         return Hawk.get(TOKEN_KEY, "");
     }
 
     @NonNull
-    public static User getUserProfile() {
+    public User getUserProfile() {
         return Hawk.get(USER_PROFILE_KEY);
     }
 
-    public static void saveUserProfile(@NonNull User user) {
+    public void saveUserProfile(@NonNull final User user) {
+        saveToken(user.getToken());
         Hawk.put(USER_PROFILE_KEY, user);
     }
 
-    public static void saveNextFromValue(@NonNull String nextFrom) {
+    public void saveNextFromValue(@NonNull final String nextFrom) {
         Hawk.put(NEXT_FROM, nextFrom);
     }
 
     @NonNull
-    public static String getStartFromValue() {
+    public String getStartFromValue() {
         return Hawk.get(NEXT_FROM, "");
     }
 
-    public static void clearNextFromValue() {
+    public void clearNextFromValue() {
         Hawk.remove(NEXT_FROM);
     }
 
-    public static boolean isSignedIn() {
+    public boolean isSignedIn() {
         return !getToken().isEmpty();
     }
 
-    public static void clearPreference() {
-        Hawk.remove(TOKEN_KEY, USER_PROFILE_KEY, NEXT_FROM);
+    public boolean isProjectChosen() {
+        return getChosenProjectId() != 0;
+    }
+
+    public void saveChosenProjectId(final long projectId) {
+        Hawk.put(PROJECT_ID, projectId);
+    }
+
+    public long getChosenProjectId() {
+        return Hawk.get(PROJECT_ID, 0L);
+    }
+
+    public void clearPreference() {
+        Hawk.remove(TOKEN_KEY, USER_PROFILE_KEY, NEXT_FROM, PROJECT_ID);
     }
 
 }

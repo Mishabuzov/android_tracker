@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.tools.Function;
+import com.example.tom.itistracker.tools.functions.Function;
 import com.example.tom.itistracker.widgets.EmptyRecyclerView;
 
 import java.util.ArrayList;
@@ -47,31 +47,48 @@ public abstract class BaseAdapter<Item> extends RecyclerView.Adapter<RecyclerVie
     @Nullable
     private EmptyRecyclerView mRecyclerView;
 
-    public BaseAdapter(@NonNull List<Item> items) {
+    public BaseAdapter(@NonNull final List<Item> items) {
         mItems.addAll(items);
     }
 
-    public BaseAdapter(@NonNull List<Item> items,
-                       @NonNull AdapterCallback callback) {
+    public BaseAdapter(@NonNull final List<Item> items,
+                       @NonNull final OnItemClickListener<Item> listener) {
+        mItems.addAll(items);
+        setOnItemClickListener(listener);
+    }
+
+    public BaseAdapter(@NonNull final List<Item> items,
+                       @NonNull final AdapterCallback callback) {
         mItems.addAll(items);
         mReloadCallback = callback;
     }
 
-    public void attachToRecyclerView(@NonNull EmptyRecyclerView recyclerView) {
+    public void attachToRecyclerView(@NonNull final EmptyRecyclerView recyclerView) {
         mRecyclerView = recyclerView;
         mRecyclerView.setAdapter(this);
         refreshRecycler();
     }
 
-    public final void add(@NonNull Item value) {
+    public final void add(@NonNull final Item value) {
         mItems.add(value);
-        refreshRecycler();
+        notifyItemInserted(getItemCount() - 1);
     }
 
-    public final void changeDataSet(@NonNull List<Item> values) {
+    public final void changeDataSet(@NonNull final List<Item> values) {
         mItems.clear();
         mItems.addAll(values);
         refreshRecycler();
+    }
+
+    public final void removeValue(final int position) {
+        mItems.remove(position);
+        notifyItemRemoved(position);
+        onEmptyCheck();
+    }
+
+    public final void removeValue(@NonNull final Item item) {
+        int position = mItems.indexOf(item);
+        removeValue(position);
     }
 
     public final void clear() {
@@ -81,13 +98,19 @@ public abstract class BaseAdapter<Item> extends RecyclerView.Adapter<RecyclerVie
 
     public void refreshRecycler() {
         notifyDataSetChanged();
+        onEmptyCheck();
+    }
+
+    private void onEmptyCheck() {
         if (mRecyclerView != null) {
             mRecyclerView.checkIfEmpty();
         }
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
+                                                      final int viewType) {
         switch (viewType) {
             case TYPE_FOOTER_PAGINATION_PROGRESS:
                 View view = LayoutInflater.from(parent.getContext())
@@ -178,7 +201,7 @@ public abstract class BaseAdapter<Item> extends RecyclerView.Adapter<RecyclerVie
 
     public interface OnItemClickListener<T> {
 
-        void onItemClick(@NonNull T item);
+        void onItemClick(@NonNull final T item);
 
     }
 

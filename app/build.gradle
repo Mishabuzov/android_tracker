@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 27
@@ -52,6 +53,10 @@ dependencies {
     implementation "com.squareup.picasso:picasso:$picassoVersion"
     implementation "de.hdodenhof:circleimageview:$circleimageviewVersion"
     implementation "com.github.orhanobut:hawk:$hawkVersion"
-    implementation "com.makeramen:roundedimageview:$roundedImageVersion"
-    implementation "com.afollestad.material-dialogs:core:0.9.6.0"
+    implementation "com.afollestad.material-dialogs:core:$materialDialogVersion"
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+    implementation 'com.google.firebase:firebase-core:15.0.2'
+    implementation 'com.google.firebase:firebase-messaging:15.0.2'
 }
+
+apply plugin: 'com.google.gms.google-services'

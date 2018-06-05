@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.tools.Function;
+import com.example.tom.itistracker.tools.functions.Function;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

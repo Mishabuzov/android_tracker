@@ -1,4 +1,4 @@
-package com.example.tom.itistracker.repositories;
+package com.example.tom.itistracker.repositories.auth;
 
 import android.support.annotation.NonNull;
 

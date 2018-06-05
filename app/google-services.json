@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "9838277831",
+    "firebase_url": "https://itistracker.firebaseio.com",
+    "project_id": "itistracker",
+    "storage_bucket": "itistracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9838277831:android:df70607510e9233f",
+        "android_client_info": {
+          "package_name": "com.example.tom.itistracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9838277831-tkkhnrri4kcats26v2kokn29lv0b6qr4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChAQDkSXiQ42lnTf90idJxESjoHOTnRlg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

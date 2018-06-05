@@ -1,50 +1,43 @@
-package com.example.tom.itistracker.screens.base.activities;
+package com.example.tom.itistracker.screens.base.activities.base_fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.widgets.fonts.textviews.RobotoBoldTextView;
+import com.example.tom.itistracker.screens.base.activities.base.BaseActivity;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public abstract class BaseFragmentActivity extends BaseActivity {
+public abstract class BaseFragmentActivity extends BaseActivity implements FragmentActivityView {
 
     public static final String FRAGMENT_TAG = "FRAGMENT_TAG";
 
-    @BindView(R.id.root_layout) LinearLayout mRootLayout;
-
-    @BindView(R.id.toolbar) Toolbar mToolbar;
-
-    @BindView(R.id.toolbar_title) RobotoBoldTextView mToolbarTitle;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_fragment);
+    protected final void initializeComponents() {
         ButterKnife.bind(this);
-        initComponents();
+        initializeActionBar();
+        processFragment();
         doCreatingActions();
     }
 
     protected void doCreatingActions() {
     }
 
-    protected void initComponents() {
-        processFragment();
-        setSupportActionBar(mToolbar);
+    protected void initializeActionBar() {
+        setSupportActionBar(getToolbar());
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
-    private void processFragment() {
+    protected abstract Toolbar getToolbar();
+
+    protected abstract TextView getToolbarTitle();
+
+    protected final void processFragment() {
         Fragment fragment = getFragment();
         fragment.setArguments(getFragmentArguments());
         setNewInstanceOfFragment(fragment);
@@ -54,15 +47,11 @@ public abstract class BaseFragmentActivity extends BaseActivity {
 
     protected abstract Bundle getFragmentArguments();
 
-    @NonNull
-    public LinearLayout getRootLayout() {
-        return mRootLayout;
-    }
-
-    protected void setNewInstanceOfFragment(@NonNull Fragment fragment) {
+    private void setNewInstanceOfFragment(@NonNull final Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         if (fm.findFragmentById(R.id.fragment_layout) != null) {
+            //Don't change fragment here! Otherwise Moxy won't set saved fragment instance
           /*  ft.replace(R.id.fragment_layout, fragment, FRAGMENT_TAG);
             ft.commit();*/
         } else {
@@ -71,15 +60,22 @@ public abstract class BaseFragmentActivity extends BaseActivity {
         }
     }
 
+    public void changeFragment(@NonNull final Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_layout, fragment, FRAGMENT_TAG);
+        ft.commit();
+    }
+
     public void setToolbarTitle(@NonNull final String title) {
         if (!title.isEmpty()) {
-            mToolbarTitle.setText(title);
+            getToolbarTitle().setText(title);
         }
     }
 
     public void setToolbarTitle(@StringRes final int title) {
         if (title != 0) {
-            mToolbarTitle.setText(title);
+            getToolbarTitle().setText(title);
         }
     }
 

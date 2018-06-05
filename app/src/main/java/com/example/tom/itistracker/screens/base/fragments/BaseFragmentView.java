@@ -9,11 +9,10 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 public interface BaseFragmentView extends MvpView {
 
-    void setToolbarTitle(String title);
-
     void finish();
 
-    void exitToLoginScreen();
+    //TODO:transfer to navigation view
+    void clearDataAndExit();
 
     @StateStrategyType(OneExecutionStateStrategy.class)
     void showToast(@NonNull final String message);
@@ -28,5 +27,7 @@ public interface BaseFragmentView extends MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy.class)
     void hideLoading();
+
+    void hideKeyboard();
 
 }

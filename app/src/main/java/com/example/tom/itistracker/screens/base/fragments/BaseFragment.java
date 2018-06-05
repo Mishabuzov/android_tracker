@@ -9,15 +9,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.example.tom.itistracker.App;
 import com.example.tom.itistracker.R;
 import com.example.tom.itistracker.screens.auth.login.LoginActivity;
-import com.example.tom.itistracker.screens.base.activities.BaseFragmentActivity;
+import com.example.tom.itistracker.screens.base.activities.base_fragment.BaseFragmentActivity;
 import com.example.tom.itistracker.tools.utils.AndroidUtils;
+import com.example.tom.itistracker.tools.utils.PreferenceUtils;
 import com.example.tom.itistracker.tools.utils.UiUtils;
 import com.example.tom.itistracker.widgets.progressbar.LoadingDialog;
 import com.example.tom.itistracker.widgets.progressbar.LoadingView;
 
+import javax.inject.Inject;
+
 public abstract class BaseFragment extends MvpAppCompatFragment implements BaseFragmentView {
+
+    @Inject protected UiUtils mUiUtils;
+
+    @Inject protected AndroidUtils mAndroidUtils;
+
+    @Inject protected PreferenceUtils mPrefUtils;
 
     private LoadingView mLoadingView;
 
@@ -28,11 +38,18 @@ public abstract class BaseFragment extends MvpAppCompatFragment implements BaseF
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        App.getComponent().inject(this);
         mLoadingView = LoadingDialog.view(getActivity().getSupportFragmentManager());
+        getArgs();
     }
 
-    @Override
-    public void setToolbarTitle(final String title) {
+    /**
+     * This is the special method for processing bundle in some fragments;
+     */
+    protected void getArgs() {
+    }
+
+    public void setToolbarTitle(@NonNull final String title) {
         if (title != null && !title.isEmpty()) {
             ((BaseFragmentActivity) getActivity()).setToolbarTitle(title);
         }
@@ -56,16 +73,17 @@ public abstract class BaseFragment extends MvpAppCompatFragment implements BaseF
 
     @Override
     public void showToast(@NonNull final String message) {
-        UiUtils.showToast(message, getContext());
+        mUiUtils.showToast(message, getContext());
     }
 
     @Override
     public void showToast(@StringRes final int message) {
-        UiUtils.showToast(message, getContext());
+        mUiUtils.showToast(message, getContext());
     }
 
     @Override
-    public void exitToLoginScreen() {
+    public void clearDataAndExit() {
+        mPrefUtils.clearPreference();
         startActivity(new Intent(getActivity(), LoginActivity.class));
         getActivity().finish();
     }
@@ -84,7 +102,12 @@ public abstract class BaseFragment extends MvpAppCompatFragment implements BaseF
         for (EditText edit : edits) {
             edit.setText("");
         }
-        AndroidUtils.hideSoftKeyboard(getActivity());
+        hideKeyboard();
+    }
+
+    @Override
+    public void hideKeyboard() {
+        mAndroidUtils.hideSoftKeyboard(getActivity());
     }
 
     @Override

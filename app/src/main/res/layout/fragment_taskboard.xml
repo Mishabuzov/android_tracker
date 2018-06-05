@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.tom.itistracker.widgets.HorizontalDragScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/horizontal_drag_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/recycler_background_default">
+
+    <LinearLayout
+        android:id="@+id/board_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp" />
+
+</com.example.tom.itistracker.widgets.HorizontalDragScrollView>

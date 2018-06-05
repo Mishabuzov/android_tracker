@@ -10,16 +10,27 @@ import com.example.tom.itistracker.tools.dagger.ContextModule;
 import com.example.tom.itistracker.tools.dagger.DaggerAppComponent;
 import com.example.tom.itistracker.tools.dagger.NetworkModule;
 import com.example.tom.itistracker.tools.dagger.RepositoryModule;
+import com.example.tom.itistracker.tools.dagger.UtilsModule;
 import com.facebook.stetho.Stetho;
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.HawkBuilder;
 import com.orhanobut.hawk.LogLevel;
+
+import timber.log.Timber;
 
 public class App extends Application {
 
     public static Handler sHandler;
 
     public static AppComponent sComponent;
+
+    public static AppComponent getComponent() {
+        return sComponent;
+    }
+
+    private void setComponent(AppComponent component) {
+        sComponent = component;
+    }
 
     @Override
     public void onCreate() {
@@ -31,21 +42,15 @@ public class App extends Application {
                 .setStorage(HawkBuilder.newSharedPrefStorage(this))
                 .setLogLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE)
                 .build();
-        if (BuildConfig.DEBUG) {
-            Stetho.initializeWithDefaults(this);
-        }
-    }
 
-    public static AppComponent getComponent() {
-        return sComponent;
+//        if (BuildConfig.DEBUG) {
+        Stetho.initializeWithDefaults(this);
+        Timber.plant(new Timber.DebugTree());
+//        }
     }
 
     private AppComponent buildComponent() {
         return DaggerAppComponent.builder().contextModule(new ContextModule(this)).build();
-    }
-
-    private void setComponent(AppComponent component) {
-        sComponent = component;
     }
 
     public AppComponent buildDaggerAppComponent() {
@@ -54,6 +59,7 @@ public class App extends Application {
                 .applicationModule(new ApplicationModule(this))
                 .networkModule(new NetworkModule())
                 .repositoryModule(new RepositoryModule())
+                .utilsModule(new UtilsModule())
                 .build();
     }
 

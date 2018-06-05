@@ -3,6 +3,7 @@
 
     <!--messages-->
     <string name="loading">Loading…</string>
+    <string name="exit_message">Выйти из приложения?</string>
 
     <!--network request errors-->
     <string name="login_unsuccess_default_error">Ошибка авторизации. Необходимо повторно ввести свои данные.</string>
@@ -11,24 +12,69 @@
 
     <!--menu-->
     <string name="menu_logout">Сменить пользователя</string>
+    <string name="menu_sprints">Спринты</string>
     <string name="menu_tasks">Задачи</string>
 
     <!--error screen and error adapter item-->
     <string name="error_reload_button">Повторить попытку</string>
 
+    <!--Login-->
     <string name="content_login_edittext_hint_login">Логин</string>
     <string name="content_login_edittext_hint_password">Пароль</string>
     <string name="content_login_btn_text_show">Показать</string>
     <string name="content_login_btn_text_hide">Скрыть</string>
     <string name="content_login_btn_text_login">Войти</string>
-
     <string name="login_error_edit_text">Логин должен состоять минимум из 2 символов</string>
     <string name="password_error_edit_text">Пароль должен состоять минимум из 4 символов</string>
-
     <string name="login_title">Вход</string>
-
-    usernameogin + register-->
     <string name="login_forget_password_message">Забыли пароль?</string>
     <string name="login_forget_password_button">Восстановить</string>
+
+    <!--dialogs-->
+    <string name="standard_dialog_positive">Да</string>
+    <string name="standard_dialog_negative">Нет</string>
+
+    <!--choosing projects screen-->
+    <string name="menu_title_project_changing">Сменить проект</string>
+    <string name="choosing_project_title">Выберите проект</string>
+    <string name="empty_view_project_title">У вас пока нет проектов</string>
+
+    <!--menus general-->
+    <string name="menu_delete">Удалить</string>
+
+    <!--user stories screen-->
+    <string name="user_stories_title">User stories</string>
+    <string name="user_story_points_inscription">total points</string>
+    <string name="user_story_points_format">%1$d %2$s</string>
+    <string name="story_menu_move_to_sprint">Переместить в спринт</string>
+    <string name="select_sprint_dialog_title">Выберите спринт: </string>
+    <string name="user_story_remove_dialog_title">Вы действительно хотите удалить User Story: </string>
+    <string name="user_story_remove_dialog_title_format">%1$s %2$s</string>
+
+    <!--sprints screen-->
+    <string name="sprints_title">Sprints</string>
+    <string name="sprints_menu_add_story">Добавить новый User story</string>
+    <string name="sprints_menu_edit_sprint">Редактировать спринт</string>
+    <string name="sprint_points_format">%1$s / %2$s</string>
+    <string name="sprint_empty_item">No data</string>
+    <string name="select_story_dialog_title">Выберите User story: </string>
+    <string name="sprint_taskboard_item">Open taskboard</string>
+    <string name="sprint_remove_dialog_title">Вы действительно хотите удалить спринт: </string>
+    <string name="sprint_remove_dialog_title_format">%1$s %2$s</string>
+
+    <!--sprint details-->
+    <string name="sprint_details_title_format">%1$s: User Stories</string>
+    <string name="sprint_details_empty_title">В спринте пока нет ни одной User Story</string>
+    <string name="stories_menu_delete_from_sprint">Удалить из спринта</string>
+
+    <!--taskboard-->
+    <string name="taskboard_new_board_title">Новая</string>
+    <string name="taskboard_in_progress_board_title">В процессе</string>
+    <string name="taskboard_check_board_title">Можно проверять</string>
+    <string name="taskboard_close_board_title">Закрыта</string>
+    <string name="taskboard_blocked_board_title">Требуются подробности</string>
+    <string name="task_deadline_title_format">Deadline: %1$s</string>
+    <string name="task_deadline_doesnt_set">Не установлен</string>
+    <string name="taskboard_toolbar_title_format">%1$s taskboard</string>
 
 </resources>

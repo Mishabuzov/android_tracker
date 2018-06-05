@@ -18,10 +18,11 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true">
 
-        <com.kpfu.mikhail.vk.widget.EmptyRecyclerView
+        <com.example.tom.itistracker.widgets.EmptyRecyclerView
             android:id="@+id/menu_recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:background="@color/recycler_background_default" />
 
 
     </android.support.design.widget.NavigationView>

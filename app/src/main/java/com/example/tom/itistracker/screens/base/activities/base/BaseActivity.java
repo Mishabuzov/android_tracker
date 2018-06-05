@@ -1,7 +1,9 @@
-package com.example.tom.itistracker.screens.base.activities;
+package com.example.tom.itistracker.screens.base.activities.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +12,8 @@ import android.view.WindowManager;
 
 import com.example.tom.itistracker.R;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity
+        implements BaseActivityView {
 
     private Window mWindow;
 
@@ -33,6 +36,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void setStatusBarColor(@ColorRes int statusBarColor) {
         mWindow.setStatusBarColor(ContextCompat.getColor(BaseActivity.this, statusBarColor));
+    }
+
+    @Override
+    public void startActivity(@NonNull final Class<? extends AppCompatActivity> targetActivity) {
+        startActivity(new Intent(this, targetActivity));
     }
 
 }

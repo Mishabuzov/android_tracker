@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="new_board" type="id" />
+    <item name="in_progress_board" type="id" />
+    <item name="test_board" type="id" />
+    <item name="closed_board" type="id" />
+    <item name="blocked_board" type="id" />
+</resources>

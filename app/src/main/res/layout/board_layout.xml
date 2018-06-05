@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/taskboard_width"
+    android:layout_height="match_parent"
+    android:layout_marginStart="20dp"
+    android:background="@android:color/white"
+    app:cardCornerRadius="@dimen/taskboard_corner_radius"
+    app:cardElevation="5dp">
+
+    <FrameLayout
+        android:layout_width="@dimen/taskboard_width"
+        android:layout_height="50dp"
+        android:background="@color/taskboard_card_toolbar">
+
+        <com.example.tom.itistracker.widgets.fonts.textviews.RobotoRegularTextView
+            android:id="@+id/board_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="30dp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            tools:text="@string/taskboard_new_board_title" />
+
+    </FrameLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="@dimen/taskboard_width"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:id="@+id/task_item_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.v7.widget.CardView>

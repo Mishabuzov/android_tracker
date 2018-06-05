@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.screens.base.activities.BaseFragmentActivity;
+import com.example.tom.itistracker.screens.base.activities.SingleFragmentActivity;
 
-public class LoginActivity extends BaseFragmentActivity {
+public class LoginActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment getFragment() {

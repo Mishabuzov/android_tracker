@@ -49,6 +49,8 @@ public class LoadingDialog extends DialogFragment {
 
     private static class LoadingDialogView implements LoadingView {
 
+        private static final AtomicBoolean mIsLoadingShown = new AtomicBoolean(false);
+
         private final FragmentManager mFm;
 
         private final AtomicBoolean mWaitForHide;
@@ -61,7 +63,8 @@ public class LoadingDialog extends DialogFragment {
 
         @Override
         public void showLoading() {
-            if (mWaitForHide.compareAndSet(false, true)) {
+            if (!mIsLoadingShown.get() && mWaitForHide.compareAndSet(false, true)) {
+                mIsLoadingShown.set(true);
                 if (mFm.findFragmentByTag(LoadingDialog.class.getName()) == null) {
                     DialogFragment dialog = new LoadingDialog();
                     dialog.show(mFm, LoadingDialog.class.getName());
@@ -71,7 +74,8 @@ public class LoadingDialog extends DialogFragment {
 
         @Override
         public void hideLoading() {
-            if (mWaitForHide.compareAndSet(true, false)) {
+            if (mIsLoadingShown.get() && mWaitForHide.compareAndSet(true, false)) {
+                mIsLoadingShown.set(false);
                 HANDLER.post(new HideTask(mFm));
             }
         }

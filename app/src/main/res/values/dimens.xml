@@ -7,4 +7,11 @@
 
     <!--Text_Size-->
     <dimen name="text.15">15sp</dimen>
+
+    <!--Taskboard_screen-->
+    <dimen name="taskboard_width">300dp</dimen>
+    <dimen name="taskboard_margin_start_end">5dp</dimen>
+    <dimen name="taskboard_margin_top_bottom">10dp</dimen>
+    <dimen name="taskboard_corner_radius">10dp</dimen>
+
 </resources>

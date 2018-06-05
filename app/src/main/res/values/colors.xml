@@ -3,30 +3,56 @@
     <color name="colorPrimary">#527856</color>
     <color name="colorPrimaryDark">#2B4033</color>
     <color name="colorAccent">#5B8660</color>
-
-    <color name="text_on_dark_background_color">#D1D1D1</color>
-    <color name="enable_button_text_without_scope">#269aef</color>
-
-    <color name="selected_menu_item">#959595</color>
-    <color name="unselected_menu_item">#D1D1D1</color>
-    <color name="recycler_background_default">#dfdfdf</color>
-    <color name="color_nav_header">#333233</color>
-
-    <color name="black">#0b0b0b</color>
-    <color name="black_text">#151414</color>
-
-    <color name="card_background">#262524</color>
-    <color name="toolbar_color">#203327</color>
-    <color name="up_toolbar_color">#141e18</color>
     <!--<color name="colorPrimaryDark">#203327</color>-->
 
-    <!--action_button (eusernameogin)-->
+    <!--default elements colors-->
+    <color name="text_on_dark_background_color">#D1D1D1</color>
+    <color name="enable_button_text_without_scope">#269aef</color>
+    <color name="recycler_background_default">#dfdfdf</color>
+    <color name="card_background">#262524</color>
+
+    <!--toolbar-->
+    <color name="toolbar_color">#203327</color>
+    <color name="up_toolbar_color">#141e18</color>
+
+    <!--action_button-->
     <color name="action_button_enabled_color">#527856</color>
     <color name="action_button_disabled_color">#434343</color>
 
+    <!--menu and navigation-->
+    <color name="selected_menu_item">#959595</color>
+    <color name="unselected_menu_item">#dfdfdf</color>
+    <color name="color_nav_header">#333233</color>
+    <color name="default_menu_items_color">#757575</color>
 
     <!--Login-->
     <color name="login_edittext_hint">#5A5A5A</color>
     <color name="login_textcolor">#999999</color>
+
+    <!--standard colors-->
+    <color name="black">#0b0b0b</color>
+    <color name="black_text">#151414</color>
+
+    <!--project choosing-->
+    <color name="delimiter_color">#999</color>
+
+    <!--User Stories screen-->
+    <color name="description_color">#527856</color>
+
+    <!--Sprint choosing screen-->
+    <color name="unselected_sprint_color">#b7b7b7</color>
+
+    <!--Sprint Circular Progress Bar-->
+    <color name="circular_progress_default_progress_line">#2B4033</color>
+
+    <!--tab layout-->
+    <color name="tab_selected_color">#2B4033</color>
+    <color name="tab_selected_text_color">#f9f9f9</color>
+    <color name="tab_standard_text_color">#999999</color>
+    <color name="tab_background">#5B8660</color>
+
+    <!--Taskboard screen-->
+    <color name="taskboard_card_toolbar">#203327</color>
+    <color name="selected_card_color">#e6e6e6</color>
 
 </resources>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:id="@+id/image_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginStart="6dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_badge_background"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                tools:src="@color/recycler_background_default" />
+
+            <com.example.tom.itistracker.widgets.fonts.textviews.RobotoRegularTextView
+                android:id="@+id/sprint_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textColor="@color/black_text"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="12 / 50" />
+
+            <com.example.tom.itistracker.widgets.CircularProgressBar
+                android:id="@+id/sprint_progress"
+                style="@style/Widget.ProgressBar.Holo.CircularProgressBar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:layout_toEndOf="@id/image_layout"
+            android:layout_toStartOf="@+id/buttons_layout"
+            android:orientation="vertical">
+
+            <com.example.tom.itistracker.widgets.fonts.textviews.RobotoBoldTextView
+                android:id="@+id/sprint_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_text"
+                android:textSize="18sp"
+                tools:text="Название спринта" />
+
+            <com.example.tom.itistracker.widgets.fonts.textviews.RobotoRegularTextView
+                android:id="@+id/sprint_deadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black_text"
+                android:textSize="16sp"
+                tools:text="Deadline" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttons_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <!--<ImageButton
+                android:id="@+id/show_stories_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/ic_arrow_down"
+                android:minWidth="1dp" />-->
+
+            <ImageButton
+                android:id="@+id/settings_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/more_vert"
+                android:minWidth="1dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/delimiter_color" />
+
+</LinearLayout>

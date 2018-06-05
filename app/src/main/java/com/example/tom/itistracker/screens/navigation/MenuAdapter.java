@@ -5,10 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.example.tom.itistracker.R;
 import com.example.tom.itistracker.models.local.MenuItem;
+import com.example.tom.itistracker.models.network.User;
 import com.example.tom.itistracker.screens.base.adapter.BaseAdapter;
 
 import java.util.List;
@@ -19,13 +19,17 @@ class MenuAdapter extends BaseAdapter<MenuItem> implements MenuItemHolder.MenuIt
 
 //    private TextView mSelectedMenuTv;
 
-    private RelativeLayout mSelectedMenuLayout;
+    private ViewGroup mSelectedMenuLayout;
 
-    private ClickCallback mClickCallback;
+    private final ClickCallback mClickCallback;
 
-    MenuAdapter(@NonNull List<MenuItem> items,
-                @NonNull ClickCallback callback) {
+    private final User mUser;
+
+    MenuAdapter(@NonNull final List<MenuItem> items,
+                @NonNull final ClickCallback callback,
+                @NonNull final User user) {
         super(items);
+        mUser = user;
         mClickCallback = callback;
     }
 
@@ -45,7 +49,7 @@ class MenuAdapter extends BaseAdapter<MenuItem> implements MenuItemHolder.MenuIt
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_ITEM_VIEW_HEADER) {
-            return new MenuHeaderHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_header, parent, false));
+            return new MenuHeaderHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_header, parent, false), mUser);
         } else {
             return new MenuItemHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_item, parent, false), this,
                     mClickCallback);
@@ -65,7 +69,7 @@ class MenuAdapter extends BaseAdapter<MenuItem> implements MenuItemHolder.MenuIt
     }
 
     @Override
-    public void saveSelectedItem(@NonNull RelativeLayout selectedLayout) {
+    public void saveSelectedItem(@NonNull ViewGroup selectedLayout) {
         mSelectedMenuLayout = selectedLayout;
 //        mSelectedMenuTv = selectedTv;
     }
@@ -77,7 +81,7 @@ class MenuAdapter extends BaseAdapter<MenuItem> implements MenuItemHolder.MenuIt
 
     @NonNull
     @Override
-    public RelativeLayout getSelectedMenuLayout() {
+    public ViewGroup getSelectedMenuLayout() {
         return mSelectedMenuLayout;
     }
 

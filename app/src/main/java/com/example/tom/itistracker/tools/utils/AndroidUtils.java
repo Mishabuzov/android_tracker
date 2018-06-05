@@ -8,13 +8,13 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.tom.itistracker.App;
 
-public class AndroidUtils {
+public final class AndroidUtils {
 
-    public static void runOnUIThread(Runnable runnable) {
+    public void runOnUIThread(Runnable runnable) {
         runOnUIThread(runnable, 0);
     }
 
-    public static void runOnUIThread(Runnable runnable, long delay) {
+    public void runOnUIThread(Runnable runnable, long delay) {
         if (delay == 0) {
             App.sHandler.post(runnable);
         } else {
@@ -25,7 +25,7 @@ public class AndroidUtils {
     /**
      * Static method to hide Software Keyboard
      */
-    public static void hideSoftKeyboard(Activity activity) {
+    public void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         if (null != activity.getCurrentFocus() && null != activity.getCurrentFocus().getWindowToken()) {
@@ -33,7 +33,7 @@ public class AndroidUtils {
         }
     }
 
-    public static void hideSoftKeyboard(View view) {
+    public void hideSoftKeyboard(View view) {
         if (view == null)
             return;
 
@@ -51,7 +51,7 @@ public class AndroidUtils {
      * @return the non-null reference that was validated
      * @throws NullPointerException if {@code reference} is null
      */
-    public static <T> T checkNotNull(T reference) {
+    public <T> T checkNotNull(T reference) {
         if (reference == null) {
             throw new NullPointerException();
         }

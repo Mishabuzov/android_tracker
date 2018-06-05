@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/sprint_add_story"
+        android:title="@string/sprints_menu_add_story" />
+    <item
+        android:id="@+id/sprint_edit"
+        android:title="@string/sprints_menu_edit_sprint" />
+    <item
+        android:id="@+id/sprint_delete"
+        android:title="@string/menu_delete" />
+</menu>

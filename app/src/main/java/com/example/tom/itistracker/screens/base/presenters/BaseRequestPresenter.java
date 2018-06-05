@@ -1,15 +1,44 @@
-package com.example.tom.itistracker.screens.base;
+package com.example.tom.itistracker.screens.base.presenters;
 
-import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 
-import com.arellomobile.mvp.MvpPresenter;
 import com.example.tom.itistracker.network.RetrofitException;
 import com.example.tom.itistracker.screens.base.fragments.BaseFragmentView;
-import com.example.tom.itistracker.tools.Function;
+import com.example.tom.itistracker.tools.functions.Function;
+import com.example.tom.itistracker.tools.functions.ResultFunction;
 
-public abstract class BaseRequestPresenter<View extends BaseFragmentView> extends MvpPresenter<View> {
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+public abstract class BaseRequestPresenter<View extends BaseFragmentView> extends BasePresenter<View> {
+
+    private CompositeDisposable mDisposables;
+
+    public BaseRequestPresenter() {
+        mDisposables = new CompositeDisposable();
+    }
+
+    protected final <T> void defaultRequestProcessing(@NonNull final Single<T> requestSingle,
+                                                      @NonNull final ResultFunction<T> onSuccessFunction) {
+        showLoading();
+        Disposable requestDisposable = requestSingle
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> processResultWithSecDelay(() -> onSuccessFunction.action(result)), this::handleError);
+        mDisposables.add(requestDisposable);
+    }
+
+    private void processResultWithSecDelay(@NonNull final Function function) {
+       /* new Handler().postDelayed(() -> {
+            hideLoading();
+            function.action();
+        }, 10000);*/
+        hideLoading();
+        function.action();
+    }
 
     /**
      * Handling errors with reload screen on Network Error.
@@ -52,14 +81,6 @@ public abstract class BaseRequestPresenter<View extends BaseFragmentView> extend
         logException(exception, exception.getOriginalExceptionMessage());
     }
 
-    protected final void logException(@NonNull final Throwable exception,
-                                      @NonNull final String message) {
-//        Logger.w(setTagForLogging(), message);
-        exception.printStackTrace();
-    }
-
-    protected abstract String setTagForLogging();
-
     private void defineNetworkErrorProcessing(@NonNull final RetrofitException exception,
                                               final boolean isReloadScreenShows,
                                               @NonNull final Function reloadFunction) {
@@ -68,21 +89,6 @@ public abstract class BaseRequestPresenter<View extends BaseFragmentView> extend
         } else {
             handleNetworkError(exception);
         }
-    }
-
-    protected void doActionsWithSecDelay(Function function) {
-        new Handler().postDelayed(() -> {
-            function.action();
-            hideLoading();
-        }, 10000);
-    }
-
-    protected final void hideLoading() {
-        getViewState().hideLoading();
-    }
-
-    protected final void showLoading() {
-        getViewState().showLoading();
     }
 
     private void handleNetworkError(@NonNull final RetrofitException exception) {
@@ -103,17 +109,12 @@ public abstract class BaseRequestPresenter<View extends BaseFragmentView> extend
         showToast(exception.getToastMessage());
     }
 
-    protected final void showToast(@StringRes final int message) {
-        getViewState().showToast(message);
+    private void cleanDataAndExit() {
+        getViewState().clearDataAndExit();
     }
 
-    protected final void showToast(@NonNull final String message) {
-        getViewState().showToast(message);
-    }
-
-    protected void cleanDataAndExit() {
-//        AndroidUtils.cleanAllSavedData();
-        getViewState().exitToLoginScreen();
+    public void onDestroy() {
+        mDisposables.dispose();
     }
 
 }

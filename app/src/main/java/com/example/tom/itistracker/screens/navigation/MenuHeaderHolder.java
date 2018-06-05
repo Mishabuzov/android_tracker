@@ -7,10 +7,10 @@ import android.widget.TextView;
 
 import com.example.tom.itistracker.R;
 import com.example.tom.itistracker.models.network.User;
-import com.example.tom.itistracker.tools.utils.PreferenceUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.annotations.NonNull;
 
 class MenuHeaderHolder extends RecyclerView.ViewHolder {
 
@@ -18,14 +18,17 @@ class MenuHeaderHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.username_tv) TextView mUsernameTv;
 
-    MenuHeaderHolder(View itemView) {
+    private final User mUser;
+
+    MenuHeaderHolder(@NonNull final View itemView,
+                     @NonNull final User user) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        mUser = user;
     }
 
     void bind() {
-        User user = PreferenceUtils.getUserProfile();
-        mUsernameTv.setText(user.getUsername());
+        mUsernameTv.setText(mUser.getUsername());
 //        mStatusTv.setText(user.getStatus());
         mMainLayout.setVisibility(View.VISIBLE);
     }

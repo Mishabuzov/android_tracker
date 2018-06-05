@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Parcelable {
 
+    private long id;
+
     @JsonProperty("auth_token")
     private String token;
 
@@ -17,13 +19,12 @@ public class User implements Parcelable {
 
     private String username;
 
-    public User(String token, String avatarUrl, String username) {
-        this.token = token;
-        this.avatarUrl = avatarUrl;
-        this.username = username;
+    public long getId() {
+        return id;
     }
 
-    public User() {
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getToken() {
@@ -57,12 +58,17 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
         dest.writeString(this.token);
         dest.writeString(this.avatarUrl);
         dest.writeString(this.username);
     }
 
+    public User() {
+    }
+
     protected User(Parcel in) {
+        this.id = in.readLong();
         this.token = in.readString();
         this.avatarUrl = in.readString();
         this.username = in.readString();

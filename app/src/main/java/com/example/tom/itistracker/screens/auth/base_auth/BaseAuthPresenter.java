@@ -1,6 +1,6 @@
 package com.example.tom.itistracker.screens.auth.base_auth;
 
-import com.example.tom.itistracker.screens.base.BaseRequestPresenter;
+import com.example.tom.itistracker.screens.base.presenters.BaseRequestPresenter;
 
 public abstract class BaseAuthPresenter<View extends BaseAuthView>
         extends BaseRequestPresenter<View> {

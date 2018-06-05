@@ -14,9 +14,9 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.tom.itistracker.R;
 import com.example.tom.itistracker.screens.auth.base_auth.AuthHelper;
-import com.example.tom.itistracker.screens.base.activities.BaseFragmentActivity;
+import com.example.tom.itistracker.screens.base.activities.SingleFragmentActivity;
 import com.example.tom.itistracker.screens.base.fragments.BaseFragment;
-import com.example.tom.itistracker.screens.navigation.NavigationActivity;
+import com.example.tom.itistracker.screens.project_choosing.ProjectChoosingActivity;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -48,8 +48,7 @@ public class LoginFragment extends BaseFragment implements LoginView, AuthHelper
 
     @BindView(R.id.show_password_button) Button mShowPasswordButton;
 
-    @InjectPresenter
-    LoginPresenter mPresenter;
+    @InjectPresenter LoginPresenter mPresenter;
 
     private Snackbar mSnackbar;
 
@@ -102,12 +101,12 @@ public class LoginFragment extends BaseFragment implements LoginView, AuthHelper
         mAuthHelper = new AuthHelper(this);
         mAuthHelper.setTextWatcher(mLoginEditText, mLoginTextInputLayout);
         mAuthHelper.setTextWatcher(mPasswordEditText, mPasswordTextInputLayout);
-         configSnackbar();
+        configSnackbar();
     }
 
     private void configSnackbar() {
         mSnackbar = Snackbar
-                .make(((BaseFragmentActivity) getActivity()).getRootLayout(),
+                .make(((SingleFragmentActivity) getActivity()).getRootLayout(),
                         R.string.login_forget_password_message, Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.login_forget_password_button,
 //                        (v) -> startActivity(ForgetPasswordActivity.class))
@@ -127,8 +126,8 @@ public class LoginFragment extends BaseFragment implements LoginView, AuthHelper
     }
 
     @Override
-    public void openThemesScreen() {
-        startActivity(NavigationActivity.class);
+    public void openProjectsScreen() {
+        startActivity(ProjectChoosingActivity.class);
     }
 
     @Override

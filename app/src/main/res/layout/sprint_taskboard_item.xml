@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/taskboard_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sprint_taskboard_item"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:background="@color/action_button_enabled_color" />
+
+</RelativeLayout>

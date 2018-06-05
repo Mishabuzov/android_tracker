@@ -1,5 +1,7 @@
 package com.example.tom.itistracker.tools;
 
+import com.example.tom.itistracker.models.local.MenuItem;
+
 /**
  * Created by Tom on 25.03.2018.
  */
@@ -17,5 +19,7 @@ public interface Constants {
     int MIN_PASSWORD_LENGTH = 4;
 
     int MIN_EMAIL_LENGTH = 4;
+
+    MenuItem FIRST_SCREEN_ITEM = MenuItem.SPRINTS;
 
 }
