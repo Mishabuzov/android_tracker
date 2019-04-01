@@ -1,9 +1,11 @@
-package com.example.tom.itistracker.models.network;
+package com.example.tom.itistracker.models.local;
 
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 
 import com.example.tom.itistracker.R;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -14,36 +16,38 @@ import java.io.IOException;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @JsonDeserialize(using = TaskStatus.TaskStatusDeserializer.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public enum TaskStatus {
 
-    NEW(11, R.id.new_board),
-    IN_PROGRESS(12, R.id.in_progress_board),
-    READY_FOR_TEST(13, R.id.test_board),
-    CLOSED(14, R.id.closed_board),
-    BLOCKED(15, R.id.blocked_board);
+    NEW("New", R.id.new_board),
+    IN_PROGRESS("In progress", R.id.in_progress_board),
+    READY_FOR_TEST("Ready for test", R.id.test_board),
+    CLOSED("Closed", R.id.closed_board),
+    BLOCKED("Needs Info", R.id.blocked_board);
 
-    private final int status;
-
+    private final String name;
     @IdRes
     private final int boardId;
 
-    TaskStatus(final int status,
+    TaskStatus(@NonNull final String name,
                @IdRes final int boardId) {
-        this.status = status;
+        this.name = name;
         this.boardId = boardId;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public static int getStatusByBoardId(@IdRes final int boardId) throws IOException {
+    @NonNull
+    public static TaskStatus getStatusByBoardId(@IdRes final int boardId) throws IOException {
         for (TaskStatus taskStatus : TaskStatus.values()) {
             if (taskStatus.getBoardId() == boardId) {
-                return taskStatus.getStatus();
+                return taskStatus;
             }
         }
         throw new IOException(String.format("TaskStatus: unexpected board id: %1$d", boardId));
+    }
+
+    @NonNull
+    public String getName() {
+        return name;
     }
 
     @IdRes
@@ -59,14 +63,16 @@ public enum TaskStatus {
         @Override
         public TaskStatus deserialize(JsonParser jp, DeserializationContext dc) throws IOException {
             final JsonNode jsonNode = jp.readValueAsTree();
-            int status = jsonNode.intValue();
+            final String currentTaskStatus = jsonNode.get("name").textValue();
 
             for (TaskStatus taskStatus : TaskStatus.values()) {
-                if (taskStatus.getStatus() == status) {
+                if (taskStatus.getName().equals(currentTaskStatus)) {
                     return taskStatus;
                 }
             }
-            throw dc.instantiationException(TaskStatus.class, "Cannot deserialize TaskStatus from status " + status);
+
+            throw dc.instantiationException(TaskStatus.class,
+                    "Cannot deserialize TaskStatus from name " + currentTaskStatus);
         }
     }
 

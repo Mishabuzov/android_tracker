@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.models.network.Sprint;
+import com.example.tom.itistracker.models.local.SprintLocalModel;
 import com.example.tom.itistracker.models.network.UserStory;
 import com.example.tom.itistracker.screens.sprints_and_stories.base.stories.BaseStoriesFragment;
 import com.example.tom.itistracker.screens.sprints_and_stories.stories.StoriesAdapter;
@@ -30,9 +30,9 @@ public class SprintDetailsFragment extends BaseStoriesFragment<SprintDetailsView
 
     private SprintDetailsAdapter mSprintDetailsAdapter;
 
-    private Sprint mCurrentSprint;
+    private SprintLocalModel mCurrentSprint;
 
-    private ArrayList<Sprint> mAnotherSprints;
+    private ArrayList<SprintLocalModel> mAnotherSprints;
 
     private Intent mResultIntent;
 

@@ -17,8 +17,8 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.tom.itistracker.R;
+import com.example.tom.itistracker.models.local.TaskStatus;
 import com.example.tom.itistracker.models.network.Task;
-import com.example.tom.itistracker.models.network.TaskStatus;
 import com.example.tom.itistracker.screens.base.fragments.BaseFragment;
 import com.example.tom.itistracker.tools.DragAndDropFeature;
 import com.example.tom.itistracker.tools.functions.ResultFunction;

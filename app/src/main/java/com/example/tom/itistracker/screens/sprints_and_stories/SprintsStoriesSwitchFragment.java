@@ -13,7 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.models.network.Sprint;
+import com.example.tom.itistracker.models.local.SprintLocalModel;
+import com.example.tom.itistracker.models.network.NotificationType;
 import com.example.tom.itistracker.models.network.UserStory;
 import com.example.tom.itistracker.screens.base.fragments.BaseFragment;
 import com.example.tom.itistracker.screens.sprints_and_stories.sprints.SprintsFragment;
@@ -26,6 +27,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+//TODO: Create presenters for listeners to reduce code in this fragment
 public class SprintsStoriesSwitchFragment extends BaseFragment implements SprintsFragment.StoriesListener,
         StoriesFragment.SprintsListener {
 
@@ -45,6 +47,8 @@ public class SprintsStoriesSwitchFragment extends BaseFragment implements Sprint
 
     private StoriesFragment mStoriesFragment;
 
+    private NotificationType mNotificationType;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,6 +57,10 @@ public class SprintsStoriesSwitchFragment extends BaseFragment implements Sprint
         initFragments();
         setupViewPager();
         return view;
+    }
+
+    public void setNotificationType(@NonNull final NotificationType notificationType) {
+        mNotificationType = notificationType;
     }
 
     private void initFragments() {
@@ -91,6 +99,19 @@ public class SprintsStoriesSwitchFragment extends BaseFragment implements Sprint
             public void onPageScrollStateChanged(int state) {
             }
         });
+        checkNotification();
+    }
+
+    private void checkNotification() {
+        if (mNotificationType != null) {
+            switch (mNotificationType) {
+                case OVERDUE_SPRINT:
+                case DEADLINE_IS_CLOSE:
+                case BLOCKED_TASKS:
+                    mPager.setCurrentItem(SPRINTS_PAGE);
+                    break;
+            }
+        }
     }
 
     @Override
@@ -109,7 +130,7 @@ public class SprintsStoriesSwitchFragment extends BaseFragment implements Sprint
     }
 
     @Override
-    public List<Sprint> getSprints() {
+    public List<SprintLocalModel> getSprints() {
         return mSprintsFragment.getSprints();
     }
 

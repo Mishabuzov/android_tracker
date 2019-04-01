@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.models.network.Project;
+import com.example.tom.itistracker.models.network.project.Project;
 import com.example.tom.itistracker.screens.base.fragments.BaseRecyclerFragment;
 import com.example.tom.itistracker.screens.navigation.NavigationActivity;
 
@@ -36,9 +36,13 @@ public class ProjectChoosingFragment extends BaseRecyclerFragment<ProjectChoosin
     }
 
     @Override
-    public void onItemClick(@NonNull final Project project) {
-        mPresenter.saveChosenProjectId(project.getId());
+    public void openNavigationActivity() {
         NavigationActivity.openMainPage(getContext());
+    }
+
+    @Override
+    public void onItemClick(@NonNull final Project project) {
+        mPresenter.loadProjectDetails(project.getId());
     }
 
 

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
-import com.example.tom.itistracker.models.network.Sprint;
+import com.example.tom.itistracker.models.local.SprintLocalModel;
 import com.example.tom.itistracker.screens.base.activities.SingleFragmentActivity;
 
 import java.util.ArrayList;
@@ -19,8 +19,8 @@ public class SprintDetailsActivity extends SingleFragmentActivity {
     static final String ANOTHER_SPRINTS = "another_sprints";
 
     public static Intent getIntentForStarting(@NonNull final Context context,
-                                              @NonNull final Sprint clickedSprint,
-                                              @NonNull final ArrayList<Sprint> anotherSprints) {
+                                              @NonNull final SprintLocalModel clickedSprint,
+                                              @NonNull final ArrayList<SprintLocalModel> anotherSprints) {
         Intent intent = new Intent(context, SprintDetailsActivity.class);
         intent.putExtra(SPRINT, clickedSprint);
         intent.putParcelableArrayListExtra(ANOTHER_SPRINTS, anotherSprints);

@@ -61,6 +61,10 @@
     <string name="sprint_taskboard_item">Open taskboard</string>
     <string name="sprint_remove_dialog_title">Вы действительно хотите удалить спринт: </string>
     <string name="sprint_remove_dialog_title_format">%1$s %2$s</string>
+    <string name="date_format">yyyy.MM.dd</string>
+    <string name="deadline_overdue_format">%1$s - overdue!</string>
+    <string name="blocked_tasks_text_format">%1$s blocked tasks</string>
+    <string name="overdue_risk_text_lable">You have an risk to overdue this sprint.</string>
 
     <!--sprint details-->
     <string name="sprint_details_title_format">%1$s: User Stories</string>

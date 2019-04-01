@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.models.network.Project;
+import com.example.tom.itistracker.models.network.project.Project;
 import com.example.tom.itistracker.screens.base.adapter.BaseAdapter;
 
 import java.util.ArrayList;

@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.models.network.Sprint;
+import com.example.tom.itistracker.models.local.SprintLocalModel;
 import com.example.tom.itistracker.models.network.UserStory;
 import com.example.tom.itistracker.screens.sprints_and_stories.base.stories.BaseStoriesFragment;
 import com.example.tom.itistracker.screens.sprints_and_stories.stories.StoriesAdapter.StoriesHolderListener;
@@ -77,7 +77,7 @@ public class StoriesFragment extends BaseStoriesFragment<StoriesView, StoriesAda
     }
 
     public interface SprintsListener {
-        List<Sprint> getSprints();
+        List<SprintLocalModel> getSprints();
 
         void refreshSprintScreen();
     }

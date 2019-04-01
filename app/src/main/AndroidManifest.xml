@@ -13,6 +13,7 @@
         android:supportsRtl="true">
         <activity
             android:name=".screens.auth.login.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustPan">
 
@@ -20,13 +21,16 @@
 
         <activity
             android:name=".screens.project_choosing.ProjectChoosingActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".screens.navigation.NavigationActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".screens.base.activities.StartActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,12 +40,14 @@
         </activity>
         <activity
             android:name=".screens.sprint_details.SprintDetailsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".screens.taskboard.TaskboardActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
-        <service android:name=".tools.MyFirebaseMessagingService">
+        <service android:name=".tools.NotificationMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

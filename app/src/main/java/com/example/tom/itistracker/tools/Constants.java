@@ -22,4 +22,8 @@ public interface Constants {
 
     MenuItem FIRST_SCREEN_ITEM = MenuItem.SPRINTS;
 
+    String NOTIFICATION_EXTRA = "notification";
+
+    int MILLIS_TO_DAYS_DIVISION_VALUE = 1000 * 60 * 60 * 24;
+
 }

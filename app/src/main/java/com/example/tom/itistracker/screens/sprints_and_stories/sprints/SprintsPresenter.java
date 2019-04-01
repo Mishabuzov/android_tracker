@@ -5,11 +5,13 @@ import android.support.annotation.Nullable;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.example.tom.itistracker.App;
-import com.example.tom.itistracker.models.network.AttachStoryToSprintObject;
+import com.example.tom.itistracker.models.local.SprintLocalModel;
 import com.example.tom.itistracker.models.network.Sprint;
+import com.example.tom.itistracker.models.network.Task;
 import com.example.tom.itistracker.models.network.UserStory;
 import com.example.tom.itistracker.repositories.sprint.SprintRepository;
 import com.example.tom.itistracker.repositories.story.StoryRepository;
+import com.example.tom.itistracker.repositories.task.TaskRepository;
 import com.example.tom.itistracker.screens.sprints_and_stories.base.BaseSprintAndStoryPresenter;
 import com.example.tom.itistracker.screens.sprints_and_stories.sprints.SprintsFragment.StoriesListener;
 import com.example.tom.itistracker.tools.functions.ResultFunction;
@@ -30,11 +32,13 @@ public class SprintsPresenter extends BaseSprintAndStoryPresenter<SprintsView> {
 
     @Inject SprintRepository mSprintRepository;
 
+    @Inject TaskRepository mTaskRepository;
+
     @Inject PreferenceUtils mPrefUtils;
 
     private StoriesListener mStoriesListener;
 
-    private List<Sprint> mSprints;
+    private List<SprintLocalModel> mSprints;
 
     private boolean mIsSprintsLoaded;
 
@@ -47,39 +51,42 @@ public class SprintsPresenter extends BaseSprintAndStoryPresenter<SprintsView> {
         if (!mIsSprintsLoaded) {
             sendingLoadSprintsRequest();
         } else {
-            showSprints(mSprints);
+            showSprints();
         }
     }
 
-    final List<Sprint> getSprints() {
+    final List<SprintLocalModel> getSprints() {
         return mSprints;
     }
 
-    public final void setSprints(@NonNull final List<Sprint> sprints) {
+    public final void setSprints(@NonNull final List<SprintLocalModel> sprints) {
         mIsSprintsLoaded = true;
         mSprints = sprints;
     }
 
     private void sendingLoadSprintsRequest() {
         defaultRequestProcessing(mSprintRepository.getSprints(mPrefUtils.getChosenProjectId()),
-                this::onSuccessGettingSprints);
+                sprints -> defaultRequestProcessing(mTaskRepository.getTasks(null),
+                        tasks -> processSprintsInfo(sprints, tasks)));
     }
 
-    private void onSuccessGettingSprints(@NonNull final List<Sprint> sprints) {
-        setSprints(sprints);
-        showSprints(sprints);
+    private void showSprints() {
+        getViewState().showSprints(mSprints);
     }
 
-    private void showSprints(@NonNull final List<Sprint> sprints) {
-        getViewState().showSprints(sprints);
+    private void processSprintsInfo(@NonNull final List<Sprint> sprints,
+                                    @NonNull final List<Task> tasks) {
+        List<SprintLocalModel> localModels = mConvertUtils.convertSprintsToLocalFormat(sprints, tasks);
+        setSprints(localModels);
+        showSprints();
     }
 
-    final void detachStoryFromSprint(final long userStoryId,
+  /*  final void detachStoryFromSprint(final long userStoryId,
                                      final int userStoryVersion) {
         defaultRequestProcessing(mStoryRepository
                         .attachUserStoryToSprint(userStoryId, new AttachStoryToSprintObject(userStoryVersion, null)),
                 this::onSuccessfullyStoryDetached);
-    }
+    }*/
 
     final void refreshData() {
         mIsSprintsLoaded = false;
@@ -116,17 +123,17 @@ public class SprintsPresenter extends BaseSprintAndStoryPresenter<SprintsView> {
         );
     }
 
-    final void deleteSprint(@NonNull final Sprint sprint) {
+    final void deleteSprint(@NonNull final SprintLocalModel sprint) {
         defaultRequestProcessing(mSprintRepository.deleteSprint(sprint.getId()), result -> onSuccessSprintDeleted(sprint));
     }
 
-    private void onSuccessSprintDeleted(@NonNull final Sprint sprint) {
+    private void onSuccessSprintDeleted(@NonNull final SprintLocalModel sprint) {
         mSprints.remove(sprint);
     }
 
-    private void onSuccessfullyStoryDetached(@NonNull final UserStory userStory) {
+    /*private void onSuccessfullyStoryDetached(@NonNull final UserStory userStory) {
 
-    }
+    }*/
 
     @Override
     protected StoryRepository getStoryRepository() {

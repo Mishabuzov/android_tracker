@@ -5,12 +5,13 @@ import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.example.tom.itistracker.App;
+import com.example.tom.itistracker.models.local.TaskStatus;
 import com.example.tom.itistracker.models.network.Task;
-import com.example.tom.itistracker.models.network.TaskStatus;
 import com.example.tom.itistracker.models.network.TaskStatusChangeObject;
 import com.example.tom.itistracker.repositories.task.TaskRepository;
 import com.example.tom.itistracker.screens.base.presenters.BaseRequestPresenter;
 import com.example.tom.itistracker.tools.functions.ResultFunction;
+import com.example.tom.itistracker.tools.utils.ConvertUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,10 @@ import io.reactivex.Single;
 public class TaskboardPresenter extends BaseRequestPresenter<TaskboardView> {
 
     @Inject TaskRepository mTaskRepository;
+
+//    @Inject PreferenceUtils mPreferenceUtils;
+
+    @Inject ConvertUtils mConvertUtils;
 
     private boolean mIsTasksLoaded;
 
@@ -49,7 +54,7 @@ public class TaskboardPresenter extends BaseRequestPresenter<TaskboardView> {
     }
 
     private void sendingLoadTasksRequest() {
-        defaultRequestProcessing(mTaskRepository.getSprintTasks(mClickedSprintId), this::processTasks);
+        defaultRequestProcessing(mTaskRepository.getTasks(mClickedSprintId), this::processTasks);
     }
 
     private void processTasks(@NonNull final List<Task> tasks) {
@@ -83,10 +88,11 @@ public class TaskboardPresenter extends BaseRequestPresenter<TaskboardView> {
     final void changeTaskStatus(@NonNull final Task taskWithOldStatus,
                                 @IdRes final int dropTargetId,
                                 @NonNull final ResultFunction<Task> onSuccessStatusChanged) {
-        int newTaskStatus = Single.fromCallable(() -> TaskStatus.getStatusByBoardId(dropTargetId))
+        final TaskStatus newTaskStatus = Single.fromCallable(() -> TaskStatus.getStatusByBoardId(dropTargetId))
                 .doOnError(this::handleError).blockingGet();
         defaultRequestProcessing(mTaskRepository.changeTaskStatus(taskWithOldStatus.getId(),
-                new TaskStatusChangeObject(taskWithOldStatus.getVersion(), newTaskStatus)),
+                new TaskStatusChangeObject(mConvertUtils.getNewTaskStatusId(newTaskStatus.getName()),
+                        taskWithOldStatus.getVersion())),
                 refreshedTask -> {
                     mAllTasks.remove(taskWithOldStatus);
                     mAllTasks.add(refreshedTask);

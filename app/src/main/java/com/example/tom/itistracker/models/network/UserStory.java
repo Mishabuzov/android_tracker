@@ -28,6 +28,12 @@ public class UserStory implements Parcelable {
 
     private int version;
 
+    @JsonProperty("is_closed")
+    private boolean isClosed;
+
+    @JsonProperty("status_extra_info")
+    private UserStoryStatusInfo serStoryStatusInfo;
+
     public long getId() {
         return id;
     }
@@ -84,6 +90,25 @@ public class UserStory implements Parcelable {
         this.version = version;
     }
 
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
+    }
+
+    public UserStoryStatusInfo getSerStoryStatusInfo() {
+        return serStoryStatusInfo;
+    }
+
+    public void setSerStoryStatusInfo(UserStoryStatusInfo serStoryStatusInfo) {
+        this.serStoryStatusInfo = serStoryStatusInfo;
+    }
+
+    public UserStory() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -98,9 +123,8 @@ public class UserStory implements Parcelable {
         dest.writeLong(this.sprintId);
         dest.writeString(this.sprintName);
         dest.writeInt(this.version);
-    }
-
-    public UserStory() {
+        dest.writeByte(this.isClosed ? (byte) 1 : (byte) 0);
+        dest.writeParcelable(this.serStoryStatusInfo, flags);
     }
 
     protected UserStory(Parcel in) {
@@ -111,6 +135,8 @@ public class UserStory implements Parcelable {
         this.sprintId = in.readLong();
         this.sprintName = in.readString();
         this.version = in.readInt();
+        this.isClosed = in.readByte() != 0;
+        this.serStoryStatusInfo = in.readParcelable(UserStoryStatusInfo.class.getClassLoader());
     }
 
     public static final Creator<UserStory> CREATOR = new Creator<UserStory>() {

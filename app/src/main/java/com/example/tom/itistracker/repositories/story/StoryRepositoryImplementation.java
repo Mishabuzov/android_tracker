@@ -22,7 +22,7 @@ public class StoryRepositoryImplementation implements StoryRepository {
     @NonNull
     @Override
     public Single<List<UserStory>> getUserStories(final long projectId) {
-        return mServiceApi.getUserStories(projectId);
+        return mServiceApi.getUnassignedUserStories(projectId);
     }
 
     @NonNull

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.models.network.Project;
+import com.example.tom.itistracker.models.network.project.Project;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 

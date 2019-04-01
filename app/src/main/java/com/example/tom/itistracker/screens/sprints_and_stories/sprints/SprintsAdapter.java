@@ -6,16 +6,16 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.models.network.Sprint;
+import com.example.tom.itistracker.models.local.SprintLocalModel;
 import com.example.tom.itistracker.screens.base.adapter.BaseAdapter;
 
 import java.util.ArrayList;
 
-public class SprintsAdapter extends BaseAdapter<Sprint> {
+public class SprintsAdapter extends BaseAdapter<SprintLocalModel> {
 
     private final SprintSettingsListener mSprintSettingsListener;
 
-    SprintsAdapter(@NonNull final OnItemClickListener<Sprint> listener,
+    SprintsAdapter(@NonNull final OnItemClickListener<SprintLocalModel> listener,
                    @NonNull final SprintSettingsListener sprintSettingsListener) {
         super(new ArrayList<>(), listener);
         mSprintSettingsListener = sprintSettingsListener;
@@ -32,18 +32,18 @@ public class SprintsAdapter extends BaseAdapter<Sprint> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         SprintsHolder sprintsHolder = (SprintsHolder) holder;
-        Sprint sprint = getItem(position);
+        SprintLocalModel sprint = getItem(position);
         sprintsHolder.bind(sprint);
         super.onBindViewHolder(holder, position);
     }
 
     public interface SprintSettingsListener {
 
-        void onAddNewStoryClicked(@NonNull final Sprint sprint);
+        void onAddNewStoryClicked(@NonNull final SprintLocalModel sprint);
 
-        void onEditSprintClicked(@NonNull final Sprint sprint);
+        void onEditSprintClicked(@NonNull final SprintLocalModel sprint);
 
-        void onDeleteSprintClicked(@NonNull final Sprint sprint);
+        void onDeleteSprintClicked(@NonNull final SprintLocalModel sprint);
 
     }
 

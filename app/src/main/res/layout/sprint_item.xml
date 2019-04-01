@@ -74,6 +74,17 @@
                 android:textSize="16sp"
                 tools:text="Deadline" />
 
+            <com.example.tom.itistracker.widgets.fonts.textviews.RobotoRegularTextView
+                android:id="@+id/blocked_tasks_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16sp"
+                tools:text="555 blocked tasks"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
         </LinearLayout>
 
         <LinearLayout

@@ -6,7 +6,7 @@ import android.view.MenuItem;
 import com.arellomobile.mvp.InjectViewState;
 import com.example.tom.itistracker.App;
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.models.network.Sprint;
+import com.example.tom.itistracker.models.local.SprintLocalModel;
 import com.example.tom.itistracker.models.network.UserStory;
 import com.example.tom.itistracker.repositories.story.StoryRepository;
 import com.example.tom.itistracker.screens.sprints_and_stories.base.stories.BaseStoriesPresenter;
@@ -26,9 +26,9 @@ public class SprintDetailsPresenter extends BaseStoriesPresenter<SprintDetailsVi
     @Inject ConvertUtils mConvertUtils;
 
     @NonNull
-    private List<Sprint> mAnotherSprints;
+    private List<SprintLocalModel> mAnotherSprints;
 
-    private Sprint mCurrentSprint;
+    private SprintLocalModel mCurrentSprint;
 
     SprintDetailsPresenter() {
         mAnotherSprints = new ArrayList<>();
@@ -37,13 +37,13 @@ public class SprintDetailsPresenter extends BaseStoriesPresenter<SprintDetailsVi
 
     //Warning!
     //It's necessary to set sprints from view!
-    final void setAnotherSprints(@NonNull final List<Sprint> anotherSprints) {
+    final void setAnotherSprints(@NonNull final List<SprintLocalModel> anotherSprints) {
         mAnotherSprints = anotherSprints;
     }
 
     //Warning!
     //It's necessary to set current sprint from view!
-    final void setCurrentSprintAndShowStories(@NonNull final Sprint currentSprint) {
+    final void setCurrentSprintAndShowStories(@NonNull final SprintLocalModel currentSprint) {
         mCurrentSprint = currentSprint;
     }
 
@@ -73,7 +73,6 @@ public class SprintDetailsPresenter extends BaseStoriesPresenter<SprintDetailsVi
             }
         };
     }
-
 
     @Override
     protected StoryRepository getStoryRepository() {

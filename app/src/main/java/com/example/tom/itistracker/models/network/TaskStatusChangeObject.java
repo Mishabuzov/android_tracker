@@ -1,13 +1,24 @@
 package com.example.tom.itistracker.models.network;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskStatusChangeObject {
+
+    private long status;
 
     private int version;
 
-    private int status;
-
-    public TaskStatusChangeObject(int version, int status) {
+    public TaskStatusChangeObject(long status, int version) {
+        this.status = status;
         this.version = version;
+    }
+
+    public long getStatus() {
+        return status;
+    }
+
+    public void setStatus(long status) {
         this.status = status;
     }
 
@@ -17,13 +28,5 @@ public class TaskStatusChangeObject {
 
     public void setVersion(int version) {
         this.version = version;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 }

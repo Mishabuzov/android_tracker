@@ -3,6 +3,7 @@ package com.example.tom.itistracker.models.network;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.tom.itistracker.models.local.TaskStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -37,7 +38,14 @@ public class Task implements Parcelable {
 
     private int version;
 
+    @JsonProperty("status")
+    private int statusId;
+
+    @JsonProperty("status_extra_info")
     private TaskStatus status;
+
+    @JsonProperty("milestone")
+    private long sprintId;
 
     public long getId() {
         return id;
@@ -45,6 +53,14 @@ public class Task implements Parcelable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
     }
 
     public String getTitle() {
@@ -127,6 +143,17 @@ public class Task implements Parcelable {
         this.status = status;
     }
 
+    public long getSprintId() {
+        return sprintId;
+    }
+
+    public void setSprintId(long sprintId) {
+        this.sprintId = sprintId;
+    }
+
+    public Task() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -144,10 +171,9 @@ public class Task implements Parcelable {
         dest.writeByte(this.isClosed ? (byte) 1 : (byte) 0);
         dest.writeParcelable(this.userStoryExtra, flags);
         dest.writeInt(this.version);
+        dest.writeInt(this.statusId);
         dest.writeInt(this.status == null ? -1 : this.status.ordinal());
-    }
-
-    public Task() {
+        dest.writeLong(this.sprintId);
     }
 
     protected Task(Parcel in) {
@@ -161,8 +187,10 @@ public class Task implements Parcelable {
         this.isClosed = in.readByte() != 0;
         this.userStoryExtra = in.readParcelable(UserStoryExtra.class.getClassLoader());
         this.version = in.readInt();
+        this.statusId = in.readInt();
         int tmpStatus = in.readInt();
         this.status = tmpStatus == -1 ? null : TaskStatus.values()[tmpStatus];
+        this.sprintId = in.readLong();
     }
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {

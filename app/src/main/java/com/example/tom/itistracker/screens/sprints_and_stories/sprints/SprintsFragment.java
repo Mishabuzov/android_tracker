@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.tom.itistracker.R;
-import com.example.tom.itistracker.models.network.Sprint;
+import com.example.tom.itistracker.models.local.SprintLocalModel;
 import com.example.tom.itistracker.models.network.UserStory;
 import com.example.tom.itistracker.screens.base.fragments.BaseRecyclerFragment;
 import com.example.tom.itistracker.screens.sprint_details.SprintDetailsActivity;
@@ -21,7 +21,7 @@ import static com.example.tom.itistracker.screens.sprint_details.SprintDetailsFr
 import static com.example.tom.itistracker.screens.sprint_details.SprintDetailsFragment.IS_NEED_TO_REFRESH;
 
 public class SprintsFragment extends BaseRecyclerFragment<SprintsAdapter> implements SprintsView,
-        SprintsAdapter.OnItemClickListener<Sprint>, SprintsAdapter.SprintSettingsListener {
+        SprintsAdapter.OnItemClickListener<SprintLocalModel>, SprintsAdapter.SprintSettingsListener {
 
     private static final int REQUEST_CODE_SPRINT_DETAILS = 1;
 
@@ -51,24 +51,24 @@ public class SprintsFragment extends BaseRecyclerFragment<SprintsAdapter> implem
     }
 
     @Override
-    public void showSprints(@NonNull final List<Sprint> sprints) {
+    public void showSprints(@NonNull final List<SprintLocalModel> sprints) {
         mAdapter.changeDataSet(sprints);
     }
 
     @Override
-    public void onItemClick(@NonNull final Sprint chosenSprint) {
-        ArrayList<Sprint> anotherSprints = (ArrayList<Sprint>) mSprintsPresenter.getSprints();
+    public void onItemClick(@NonNull final SprintLocalModel chosenSprint) {
+        ArrayList<SprintLocalModel> anotherSprints = (ArrayList<SprintLocalModel>) mSprintsPresenter.getSprints();
         anotherSprints.remove(chosenSprint);
         startActivityForResult(SprintDetailsActivity.getIntentForStarting(getContext(), chosenSprint, anotherSprints),
                 REQUEST_CODE_SPRINT_DETAILS);
     }
 
-    public void setStoriesListener(StoriesListener storiesListener) {
+    public void setStoriesListener(@NonNull final StoriesListener storiesListener) {
         mStoriesListener = storiesListener;
     }
 
     @Override
-    public void onAddNewStoryClicked(@NonNull final Sprint sprint) {
+    public void onAddNewStoryClicked(@NonNull final SprintLocalModel sprint) {
         mUiUtils.createListDialog(getContext(), R.string.select_story_dialog_title,
                 mSprintsPresenter.getStoriesTitles(),
                 mSprintsPresenter.getOnChoosingStoryFunction(sprint.getId())
@@ -76,24 +76,24 @@ public class SprintsFragment extends BaseRecyclerFragment<SprintsAdapter> implem
     }
 
     @Override
-    public void onEditSprintClicked(@NonNull final Sprint sprint) {
+    public void onEditSprintClicked(@NonNull final SprintLocalModel sprint) {
         // TODO: GOTO EDIT SPRINT
         showToast("GOTO Edit Sprint page");
     }
 
     @Override
-    public void onDeleteSprintClicked(@NonNull final Sprint sprint) {
+    public void onDeleteSprintClicked(@NonNull final SprintLocalModel sprint) {
         mUiUtils.createConfirmDialog(getContext(), () -> mSprintsPresenter.deleteSprint(sprint),
                 String.format(getString(R.string.sprint_remove_dialog_title_format),
                         getString(R.string.sprint_remove_dialog_title), sprint.getName()));
     }
 
     @Override
-    public void removeSprintFromAdapter(@NonNull final Sprint sprint) {
+    public void removeSprintFromAdapter(@NonNull final SprintLocalModel sprint) {
         mAdapter.removeValue(sprint);
     }
 
-    public List<Sprint> getSprints() {
+    public List<SprintLocalModel> getSprints() {
         return mSprintsPresenter.getSprints();
     }
 

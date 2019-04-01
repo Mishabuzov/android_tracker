@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 import com.example.tom.itistracker.App;
 import com.example.tom.itistracker.R;
 import com.example.tom.itistracker.models.local.MenuItem;
+import com.example.tom.itistracker.models.network.NotificationType;
 import com.example.tom.itistracker.screens.auth.login.LoginActivity;
 import com.example.tom.itistracker.screens.base.activities.base_fragment.BaseFragmentActivity;
 import com.example.tom.itistracker.screens.sprints_and_stories.SprintsStoriesSwitchFragment;
@@ -28,6 +28,8 @@ import com.example.tom.itistracker.widgets.fonts.textviews.RobotoBoldTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+
+import static com.example.tom.itistracker.tools.Constants.NOTIFICATION_EXTRA;
 
 public class NavigationActivity extends BaseFragmentActivity implements MenuAdapter.ClickCallback,
         NavigationView {
@@ -50,9 +52,7 @@ public class NavigationActivity extends BaseFragmentActivity implements MenuAdap
 
     private NavigationPresenter mPresenter;
 
-    public static void openMainPage(@NonNull final Context context) {
-        startActivityAsFirstInStack(context, NavigationActivity.class);
-    }
+    private NotificationType mNotificationType;
 
     /**
      * The method open NavigationActivity as first Activity in Activities stack.
@@ -60,11 +60,14 @@ public class NavigationActivity extends BaseFragmentActivity implements MenuAdap
      *
      * @param context - context for opening new Activity;
      */
-    private static void startActivityAsFirstInStack(@NonNull final Context context,
-                                                    @NonNull final Class<? extends AppCompatActivity> targetActivity) {
-        Intent intent = new Intent(context, targetActivity);
+    public static void openMainPage(@NonNull final Context context) {
+        context.startActivity(getNavigationIntent(context));
+    }
+
+    public static Intent getNavigationIntent(@NonNull final Context context) {
+        Intent intent = new Intent(context, NavigationActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        context.startActivity(intent);
+        return intent;
     }
 
     @Override
@@ -72,8 +75,16 @@ public class NavigationActivity extends BaseFragmentActivity implements MenuAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         App.getComponent().inject(this);
+        getArgs();
         initializeComponents();
         setupMenuAdapter();
+    }
+
+    private void getArgs() {
+        Bundle args = getIntent().getExtras();
+        if (args != null) {
+            mNotificationType = (NotificationType) args.get(NOTIFICATION_EXTRA);
+        }
     }
 
     @Override
@@ -93,7 +104,11 @@ public class NavigationActivity extends BaseFragmentActivity implements MenuAdap
 
     @Override
     protected Fragment getFragment() {
-        return new SprintsStoriesSwitchFragment();
+        SprintsStoriesSwitchFragment switchFragment = new SprintsStoriesSwitchFragment();
+        if (mNotificationType != null) {
+            switchFragment.setNotificationType(mNotificationType);
+        }
+        return switchFragment;
     }
 
     @Override

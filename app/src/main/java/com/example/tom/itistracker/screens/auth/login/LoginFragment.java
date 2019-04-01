@@ -65,8 +65,8 @@ public class LoginFragment extends BaseFragment implements LoginView, AuthHelper
     @OnLongClick(R.id.btn_login)
     public boolean onLongClickSignInButton() {
 //        if (BuildConfig.DEBUG) {
-        final String[] logins = {"mikhaijl7@gmail.com", "mikelio11@yandex.ru"};
-        final String[] passwords = {"getiba19", "getiba19"};
+        final String[] logins = {"kinderm5@mail.ru"};
+        final String[] passwords = {"Qwerty007"};
         new MaterialDialog.Builder(getContext()).items((CharSequence[]) logins)
                 .itemsCallback((dialog, view1, which, text) -> {
                     mLoginEditText.setText(logins[which]);

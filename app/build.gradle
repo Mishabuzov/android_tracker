@@ -10,7 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField "String", "API_ENDPOINT", "\"http://159.89.108.149/api/v1/\""
+        buildConfigField "String", "API_ENDPOINT", "\"https://api.taiga.io/api/v1/\""
         buildConfigField "boolean", "USE_LOG", "true"
     }
     buildTypes {

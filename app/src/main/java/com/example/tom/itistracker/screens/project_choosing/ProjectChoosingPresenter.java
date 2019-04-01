@@ -4,7 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.example.tom.itistracker.App;
-import com.example.tom.itistracker.models.network.Project;
+import com.example.tom.itistracker.models.network.project.Project;
+import com.example.tom.itistracker.models.network.project.ProjectDetails;
 import com.example.tom.itistracker.repositories.project.ProjectRepository;
 import com.example.tom.itistracker.screens.base.presenters.BaseRequestPresenter;
 import com.example.tom.itistracker.tools.utils.PreferenceUtils;
@@ -48,6 +49,17 @@ public class ProjectChoosingPresenter extends BaseRequestPresenter<ProjectChoosi
         mIsProjectLoaded = true;
         mProjects = projects;
         showProjects(projects);
+    }
+
+    void loadProjectDetails(final long projectId) {
+        defaultRequestProcessing(mProjectRepository.getProjectDetails(projectId),
+                this::onSuccessGettingProjectDetails);
+    }
+
+    private void onSuccessGettingProjectDetails(@NonNull final ProjectDetails projectDetails) {
+        mPreferenceUtils.saveAllProjectTaskStatuses(projectDetails.getTaskStatuses());
+        saveChosenProjectId(projectDetails.getId());
+        getViewState().openNavigationActivity();
     }
 
     private void showProjects(@NonNull final List<Project> projects) {

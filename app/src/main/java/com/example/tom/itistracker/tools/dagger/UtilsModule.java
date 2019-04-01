@@ -33,8 +33,8 @@ public class UtilsModule {
 
     @Singleton
     @Provides
-    ConvertUtils provideConvertUtils() {
-        return new ConvertUtils();
+    ConvertUtils provideConvertUtils(PreferenceUtils preferenceUtils) {
+        return new ConvertUtils(preferenceUtils);
     }
 
 }
